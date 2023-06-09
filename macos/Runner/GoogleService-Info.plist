@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>588156938455-nmflnotvmnophd1scnsk394a4o48j2s4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.588156938455-nmflnotvmnophd1scnsk394a4o48j2s4</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>588156938455-0dsj1nnvptf6p4vhrt5icereus8ivs9s.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKDzVHmjuc63INxbR2qOAD0Lt-b-OpZpY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>588156938455</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.bluetouch</string>
+	<key>PROJECT_ID</key>
+	<string>bluetouch-81627</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bluetouch-81627.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:588156938455:ios:2deb2c9f789072de736892</string>
+</dict>
+</plist>
