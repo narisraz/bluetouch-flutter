@@ -1,11 +1,12 @@
 import 'package:bluetouch/client/models/address.dart';
 import 'package:bluetouch/client/models/client.dart';
+import 'package:bluetouch/client/models/client_state.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:bluetouch/compteur/models/compteur.dart';
 import 'package:bluetouch/compteur/models/compteur_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ClientFirestoreRepository implements ClientRepository {
+class ClientFirestoreRepository implements ClientRequestRepository, ClientCommandRepository {
 
   final FirebaseFirestore firebaseFirestore;
 
@@ -30,6 +31,13 @@ class ClientFirestoreRepository implements ClientRepository {
       clients.add(client);
     }
     return clients;
+  }
+
+  @override
+  Future<void> updateClientState(String id, ClientState state) {
+    return firebaseFirestore.collection('clients').doc(id).update({
+      'state': state.name
+    });
   }
 
   Future<Address?> getAddress(Map<String, dynamic>? data) async {

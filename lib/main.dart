@@ -1,4 +1,3 @@
-import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:bluetouch/client/views/client_list_page.dart';
 import 'package:bluetouch/data/client_firestore_repository.dart';
 import 'package:bluetouch/drawer.dart';
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final firestore = FirebaseFirestore.instance;
 
-    final ClientRepository clientRepository = ClientFirestoreRepository(firestore);
+    final ClientFirestoreRepository clientRepository = ClientFirestoreRepository(firestore);
 
     WidgetsFlutterBinding.ensureInitialized();
     return MaterialApp(
@@ -46,6 +45,7 @@ class MyApp extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: ClientListPage(
             clientRepository: clientRepository,
+            clientCommandRepository: clientRepository,
           ),
         ),
       ),

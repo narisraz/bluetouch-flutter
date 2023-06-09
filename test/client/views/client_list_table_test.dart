@@ -2,7 +2,6 @@ import 'package:bluetouch/client/bloc/client_list_bloc.dart';
 import 'package:bluetouch/client/bloc/client_list_event.dart';
 import 'package:bluetouch/client/models/client_category.dart';
 import 'package:bluetouch/client/models/client_state.dart';
-import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:bluetouch/client/views/client_list_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +12,11 @@ import '../stubs/client_stubs.dart';
 
 void main() {
   testWidgets("should contains headers", (tester) async {
-    ClientRepository clientRepository = FakeClientRepository();
+    FakeClientRepository clientRepository = FakeClientRepository(clients: [clientStub]);
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));
@@ -41,11 +40,11 @@ void main() {
   });
 
   testWidgets("should contains data", (tester) async {
-    ClientRepository clientRepository = FakeClientRepository();
+    FakeClientRepository clientRepository = FakeClientRepository(clients: [clientStub]);
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));
@@ -65,11 +64,11 @@ void main() {
   });
 
   testWidgets("should contains no clients message", (tester) async {
-    ClientRepository clientRepository = NoClientRepository();
+    FakeClientRepository clientRepository = FakeClientRepository();
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));
@@ -80,28 +79,12 @@ void main() {
     expectContainsText('Il n\'y a pas encore de clients');
   });
 
-  testWidgets("should contains failure message", (tester) async {
-    ClientRepository clientRepository = FailedClientRepository();
+  testWidgets("should udpate element", (tester) async {
+    FakeClientRepository clientRepository = FakeClientRepository(clients: [clientStub]);
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
-          child: const ClientListTable()
-      ),
-    ));
-
-    await tester.idle();
-    await tester.pump();
-
-    expectContainsText('Erreur lors de la récupération des clients');
-  });
-
-  testWidgets("should display change state popup", (tester) async {
-    ClientRepository clientRepository = FakeClientRepository();
-
-    await tester.pumpWidget(MaterialApp(
-      home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));

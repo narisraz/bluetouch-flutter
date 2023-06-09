@@ -1,4 +1,5 @@
 import 'package:bluetouch/client/bloc/client_list_bloc.dart';
+import 'package:bluetouch/client/bloc/client_list_event.dart';
 import 'package:bluetouch/client/bloc/client_list_state.dart';
 import 'package:bluetouch/client/models/client.dart';
 import 'package:bluetouch/client/models/client_category.dart';
@@ -127,7 +128,8 @@ class ClientListData extends DataTableSource {
                 content: Text("Souhaitez-vous vraiment changer l'état de ce client en ${value?.data.label} ?"),
                 actions: [
                   TextButton(onPressed: () {
-                    _clients[index].state = value!;
+                    _context.read<ClientListBloc>().add(ClientListEventUpdateElement(_clients[index].id!, value!));
+                    _clients[index].state = value;
                     notifyListeners();
                     Navigator.pop(context);
                   }, child: const Text("Ok")),

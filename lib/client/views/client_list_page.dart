@@ -6,17 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientListPage extends StatelessWidget {
-  final ClientRepository clientRepository;
+  final ClientRequestRepository clientRepository;
+  final ClientCommandRepository clientCommandRepository;
 
   const ClientListPage({
     super.key,
-    required this.clientRepository
+    required this.clientRepository,
+    required this.clientCommandRepository
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
+      create: (_) => ClientListBloc(clientRepository, clientCommandRepository)..add(ClientListEventFetched()),
       child: const ClientListTable()
     );
   }

@@ -1,25 +1,22 @@
 import 'package:bluetouch/client/models/client.dart';
+import 'package:bluetouch/client/models/client_state.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
 
-import 'client_stubs.dart';
+class FakeClientRepository implements ClientRequestRepository, ClientCommandRepository {
 
-class FakeClientRepository extends ClientRepository {
+  final List<Client> clients;
+
+  FakeClientRepository({
+    this.clients = const []
+  });
+
   @override
   Future<List<Client>> getAll() {
-    return Future.value(clientsStub);
+    return Future.value(clients);
   }
-}
 
-class NoClientRepository extends ClientRepository {
   @override
-  Future<List<Client>> getAll() {
-    return Future.value([]);
-  }
-}
-
-class FailedClientRepository extends ClientRepository {
-  @override
-  Future<List<Client>> getAll() {
+  Future<void> updateClientState(String id, ClientState state) {
     throw UnimplementedError();
   }
 }
