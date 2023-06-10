@@ -1,3 +1,4 @@
+import 'package:bluetouch/client/models/client_category.dart';
 import 'package:bluetouch/client/models/client_state.dart';
 
 class ClientListEvent {
@@ -5,9 +6,15 @@ class ClientListEvent {
 }
 
 class ClientListEventFetched extends ClientListEvent {}
-class ClientListEventUpdateElement extends ClientListEvent {
+class ClientListEventUpdateState extends ClientListEvent {
   final String id;
   final ClientState state;
 
-  ClientListEventUpdateElement(this.id, this.state);
+  ClientListEventUpdateState(this.id, this.state);
+}
+class ClientListEventUpdateCategory extends ClientListEvent {
+  final String id;
+  final ClientCategory category;
+
+  ClientListEventUpdateCategory(this.id, this.category);
 }

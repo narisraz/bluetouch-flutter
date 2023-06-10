@@ -1,5 +1,6 @@
 import 'package:bluetouch/client/models/address.dart';
 import 'package:bluetouch/client/models/client.dart';
+import 'package:bluetouch/client/models/client_category.dart';
 import 'package:bluetouch/client/models/client_state.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:bluetouch/compteur/models/compteur.dart';
@@ -37,6 +38,13 @@ class ClientFirestoreRepository implements ClientRepository {
   Future<void> updateClientState(String id, ClientState state) {
     return firebaseFirestore.collection('clients').doc(id).update({
       'state': state.name
+    });
+  }
+
+  @override
+  Future<void> updateClientCategory(String id, ClientCategory category) {
+    return firebaseFirestore.collection('clients').doc(id).update({
+      'category': category.name
     });
   }
 

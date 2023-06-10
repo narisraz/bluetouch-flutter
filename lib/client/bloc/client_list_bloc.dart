@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bluetouch/client/bloc/client_list_event.dart';
 import 'package:bluetouch/client/bloc/client_list_state.dart';
+import 'package:bluetouch/client/models/client_category.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,8 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
   ClientListBloc(this.context): super(const ClientListState()) {
     clientRepository = RepositoryProvider.of<ClientRepository>(context);
     on<ClientListEventFetched>(_onClientFetched);
-    on<ClientListEventUpdateElement>(_onUpdateElement);
+    on<ClientListEventUpdateState>(_onUpdateState);
+    on<ClientListEventUpdateCategory>(_onUpdateCategory);
   }
 
   FutureOr<void> _onClientFetched(ClientListEventFetched event, emit) async {
@@ -31,9 +33,19 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
     }
   }
 
-  FutureOr<void> _onUpdateElement(ClientListEventUpdateElement event, Emitter<ClientListState> emit) async {
+  FutureOr<void> _onUpdateState(ClientListEventUpdateState event, Emitter<ClientListState> emit) async {
     try {
       await clientRepository.updateClientState(event.id, event.state);
+    } catch(e) {
+      emit(const ClientListState(
+          clientListStatus: ClientListStatus.failure
+      ));
+    }
+  }
+
+  FutureOr<void> _onUpdateCategory(ClientListEventUpdateCategory event, Emitter<ClientListState> emit) async {
+    try {
+      await clientRepository.updateClientCategory(event.id, event.category);
     } catch(e) {
       emit(const ClientListState(
           clientListStatus: ClientListStatus.failure

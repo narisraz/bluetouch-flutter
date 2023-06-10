@@ -1,7 +1,8 @@
 import 'package:bluetouch/client/bloc/client_list_bloc.dart';
 import 'package:bluetouch/client/bloc/client_list_event.dart';
 import 'package:bluetouch/client/bloc/client_list_state.dart';
-import 'package:bluetouch/client/components/dropdown_client.dart';
+import 'package:bluetouch/client/components/dropdown_client_category.dart';
+import 'package:bluetouch/client/components/dropdown_client_state.dart';
 import 'package:bluetouch/client/models/client.dart';
 import 'package:bluetouch/client/models/client_category.dart';
 import 'package:bluetouch/client/models/client_state.dart';
@@ -107,16 +108,16 @@ class ClientListDataSource extends DataTableSource {
       DataCell(Text(_clients[index].compteur?.number ?? "")),
       DataCell(Text(_clients[index].rang.toString())),
       DataCell(DropdownClientState(
-        client: _clients[index],
-        onChanged: (ClientState? value) {
+        selectedState: _clients[index].state,
+        onChanged: (ClientState? state) {
           showDialog(context: _context, builder: (context) {
             return AlertDialog(
               title: const Text("Changement d'état"),
-              content: Text("Souhaitez-vous vraiment changer l'état de ce client en ${value?.data.label} ?"),
+              content: Text("Souhaitez-vous vraiment changer l'état de ce client en ${state?.data.label} ?"),
               actions: [
                 TextButton(onPressed: () {
-                  context.read<ClientListBloc>().add(ClientListEventUpdateElement(_clients[index].id!, value!));
-                  _clients[index].state = value;
+                  _context.read<ClientListBloc>().add(ClientListEventUpdateState(_clients[index].id!, state!));
+                  _clients[index].state = state;
                   notifyListeners();
                   Navigator.pop(context);
                 }, child: const Text("Ok")),
@@ -128,11 +129,28 @@ class ClientListDataSource extends DataTableSource {
           });
         },
       )),
-      DataCell(
-          Chip(
-            label: Text(_clients[index].category.data.label),
-          )
-      ),
+      DataCell(DropdownClientCategory(
+        selectedCategory: _clients[index].category,
+        onChanged: (ClientCategory? category) {
+          showDialog(context: _context, builder: (context) {
+            return AlertDialog(
+              title: const Text("Changement de catégorie"),
+              content: Text("Souhaitez-vous vraiment changer la catégorie de ce client en ${category?.data.label} ?"),
+              actions: [
+                TextButton(onPressed: () {
+                  _context.read<ClientListBloc>().add(ClientListEventUpdateCategory(_clients[index].id!, category!));
+                  _clients[index].category = category;
+                  notifyListeners();
+                  Navigator.pop(context);
+                }, child: const Text("Ok")),
+                TextButton(onPressed: () {
+                  Navigator.pop(context);
+                }, child: const Text("Annuler")),
+              ],
+            );
+          });
+        },
+      )),
       DataCell(Text(_clients[index].account.toString())),
     ]);
   }
