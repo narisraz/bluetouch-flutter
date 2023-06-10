@@ -1,3 +1,4 @@
+import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:bluetouch/client/views/client_list_page.dart';
 import 'package:bluetouch/data/client_firestore_repository.dart';
 import 'package:bluetouch/drawer.dart';
@@ -5,6 +6,7 @@ import 'package:bluetouch/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,8 +26,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final firestore = FirebaseFirestore.instance;
 
-    final ClientFirestoreRepository clientRepository = ClientFirestoreRepository(firestore);
-
     WidgetsFlutterBinding.ensureInitialized();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -41,10 +41,13 @@ class MyApp extends StatelessWidget {
           ],
         ),
         drawer: const AppDrawer(),
-        body: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: ClientListPage(
-            clientRepository: clientRepository,
+        body: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider<ClientRepository>(create: (_) => ClientFirestoreRepository(firestore))
+          ],
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: const ClientListPage(),
           ),
         ),
       ),

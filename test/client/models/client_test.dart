@@ -16,8 +16,8 @@ void main() {
 
     test("Change client category", () {
       Client client = clientStub;
-      client.changeCategory(ClientCategory.PRIVATE);
-      expect(client.category, equals(ClientCategory.PRIVATE));
+      client.changeCategory(ClientCategory.private);
+      expect(client.category, equals(ClientCategory.private));
     });
 
     test("parse client from json", () {
@@ -37,7 +37,7 @@ void main() {
       expect(client.firstName, 'First Name');
       expect(client.contractNumber, 1);
       expect(client.reference, 'REF01');
-      expect(client.category, ClientCategory.PRIVATE);
+      expect(client.category, ClientCategory.private);
       expect(client.state, ClientState.waiting);
       expect(client.account, 512.2);
       expect(client.tel, '1234456');

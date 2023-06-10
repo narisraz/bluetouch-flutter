@@ -1,5 +1,5 @@
 enum ClientCategory {
-  PRIVATE, BORNE_FONTAINE, SOCIAL
+  private, borneFontaine, social
 }
 
 class ClientCategoryData {
@@ -11,11 +11,11 @@ class ClientCategoryData {
 extension ClientCategoryExtension on ClientCategory {
   ClientCategoryData get data {
     switch (this) {
-      case ClientCategory.PRIVATE:
+      case ClientCategory.private:
         return ClientCategoryData("Privée");
-      case ClientCategory.BORNE_FONTAINE:
+      case ClientCategory.borneFontaine:
         return ClientCategoryData("Borne fontaine");
-      case ClientCategory.SOCIAL:
+      case ClientCategory.social:
         return ClientCategoryData("Social");
     }
   }
