@@ -1,6 +1,7 @@
 import 'package:bluetouch/client/bloc/client_list_bloc.dart';
 import 'package:bluetouch/client/bloc/client_list_event.dart';
 import 'package:bluetouch/client/bloc/client_list_state.dart';
+import 'package:bluetouch/client/components/dropdown_client.dart';
 import 'package:bluetouch/client/models/client.dart';
 import 'package:bluetouch/client/models/client_category.dart';
 import 'package:bluetouch/client/models/client_state.dart';
@@ -50,7 +51,7 @@ class ClientListPage extends StatelessWidget {
                         );
                       }
                       return PaginatedDataTable(
-                        source: ClientListData(state.clients, context),
+                        source: ClientListDataSource(state.clients, context),
                         header: const Text('Liste des clients'),
                         rowsPerPage: 10,
                         actions: [
@@ -85,12 +86,12 @@ class ClientListPage extends StatelessWidget {
   }
 }
 
-class ClientListData extends DataTableSource {
+class ClientListDataSource extends DataTableSource {
 
   final List<Client> _clients;
   final BuildContext _context;
 
-  ClientListData(this._clients, this._context);
+  ClientListDataSource(this._clients, this._context);
 
   @override
   DataRow? getRow(int index) {
@@ -105,49 +106,28 @@ class ClientListData extends DataTableSource {
       DataCell(Text(_clients[index].reference)),
       DataCell(Text(_clients[index].compteur?.number ?? "")),
       DataCell(Text(_clients[index].rang.toString())),
-      DataCell(
-          DropdownButton(
-            value: _clients[index].state,
-            selectedItemBuilder: (BuildContext context) =>
-                ClientState.values.map((item) =>
-                    Row(
-                      children: [
-                        Text(
-                          item.data.label,
-                          style: TextStyle(
-                              color: _clients[index].state.data.color
-                          ),
-                        ),
-                      ],
-                    )
-                ).toList(),
-            items: ClientState.values.map((state) =>
-                DropdownMenuItem(
-                    value: state,
-                    child: Text(state.data.label)
-                )
-            ).toList(),
-            onChanged: (value) {
-              showDialog(context: _context, builder: (context) {
-                return AlertDialog(
-                  title: const Text("Changement d'état"),
-                  content: Text("Souhaitez-vous vraiment changer l'état de ce client en ${value?.data.label} ?"),
-                  actions: [
-                    TextButton(onPressed: () {
-                      _context.read<ClientListBloc>().add(ClientListEventUpdateElement(_clients[index].id!, value!));
-                      _clients[index].state = value;
-                      notifyListeners();
-                      Navigator.pop(context);
-                    }, child: const Text("Ok")),
-                    TextButton(onPressed: () {
-                      Navigator.pop(context);
-                    }, child: const Text("Annuler")),
-                  ],
-                );
-              });
-            },
-          )
-      ),
+      DataCell(DropdownClientState(
+        client: _clients[index],
+        onChanged: (ClientState? value) {
+          showDialog(context: _context, builder: (context) {
+            return AlertDialog(
+              title: const Text("Changement d'état"),
+              content: Text("Souhaitez-vous vraiment changer l'état de ce client en ${value?.data.label} ?"),
+              actions: [
+                TextButton(onPressed: () {
+                  context.read<ClientListBloc>().add(ClientListEventUpdateElement(_clients[index].id!, value!));
+                  _clients[index].state = value;
+                  notifyListeners();
+                  Navigator.pop(context);
+                }, child: const Text("Ok")),
+                TextButton(onPressed: () {
+                  Navigator.pop(context);
+                }, child: const Text("Annuler")),
+              ],
+            );
+          });
+        },
+      )),
       DataCell(
           Chip(
             label: Text(_clients[index].category.data.label),

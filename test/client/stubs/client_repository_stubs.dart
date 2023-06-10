@@ -7,7 +7,7 @@ class FakeClientRepository implements ClientRepository {
   final List<Client> clients;
 
   FakeClientRepository({
-    this.clients = const []
+    required this.clients
   });
 
   @override
