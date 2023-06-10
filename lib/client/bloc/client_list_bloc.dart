@@ -5,17 +5,16 @@ import 'package:bluetouch/client/bloc/client_list_state.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
 
 class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
-  late final ClientRequestRepository clientRequestRepository;
-  late final ClientCommandRepository clientCommandRepository;
+  late final ClientRepository clientRepository;
 
-  ClientListBloc(this.clientRequestRepository, this.clientCommandRepository): super(const ClientListState()) {
+  ClientListBloc(this.clientRepository): super(const ClientListState()) {
     on<ClientListEventFetched>(_onClientFetched);
     on<ClientListEventUpdateElement>(_onUpdateElement);
   }
 
   FutureOr<void> _onClientFetched(ClientListEventFetched event, emit) async {
     try {
-      var clients = await clientRequestRepository.getAll();
+      var clients = await clientRepository.getAll();
       if (state.clientListStatus == ClientListStatus.initial) {
         emit(ClientListState(
             clientListStatus: ClientListStatus.success,
@@ -31,7 +30,7 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
 
   FutureOr<void> _onUpdateElement(ClientListEventUpdateElement event, Emitter<ClientListState> emit) async {
     try {
-      await clientCommandRepository.updateClientState(event.id, event.state);
+      await clientRepository.updateClientState(event.id, event.state);
     } catch(e) {
       emit(const ClientListState(
           clientListStatus: ClientListStatus.failure

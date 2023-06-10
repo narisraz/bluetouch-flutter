@@ -11,7 +11,7 @@ void main() {
     final firestore = FakeFirebaseFirestore();
     await firestore.collection("clients").add(clientStub.toJson());
 
-    final ClientRequestRepository clientRepository = ClientFirestoreRepository(firestore);
+    final ClientRepository clientRepository = ClientFirestoreRepository(firestore);
     var clients = await clientRepository.getAll();
 
     expect(clients.length, equals(1));
@@ -21,7 +21,7 @@ void main() {
     final firestore = FakeFirebaseFirestore();
     var beforeUpdate = await firestore.collection("clients").add(clientStub.toJson());
 
-    final ClientCommandRepository clientRepository = ClientFirestoreRepository(firestore);
+    final ClientRepository clientRepository = ClientFirestoreRepository(firestore);
     await clientRepository.updateClientState(beforeUpdate.id, ClientState.active);
 
     var afterUpdate = await firestore.collection("clients").doc(beforeUpdate.id).get();

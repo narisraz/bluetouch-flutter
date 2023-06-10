@@ -2,7 +2,7 @@ import 'package:bluetouch/client/models/client.dart';
 import 'package:bluetouch/client/models/client_state.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
 
-class FakeClientRepository implements ClientRequestRepository, ClientCommandRepository {
+class FakeClientRepository implements ClientRepository {
 
   final List<Client> clients;
 

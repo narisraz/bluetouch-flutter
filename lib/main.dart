@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: ClientListPage(
             clientRepository: clientRepository,
-            clientCommandRepository: clientRepository,
           ),
         ),
       ),

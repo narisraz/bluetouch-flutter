@@ -6,7 +6,7 @@ import 'package:bluetouch/compteur/models/compteur.dart';
 import 'package:bluetouch/compteur/models/compteur_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ClientFirestoreRepository implements ClientRequestRepository, ClientCommandRepository {
+class ClientFirestoreRepository implements ClientRepository {
 
   final FirebaseFirestore firebaseFirestore;
 

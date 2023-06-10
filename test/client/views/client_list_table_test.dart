@@ -16,7 +16,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));
@@ -44,7 +44,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));
@@ -68,7 +68,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));
@@ -84,7 +84,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider(
-          create: (_) => ClientListBloc(clientRepository, clientRepository)..add(ClientListEventFetched()),
+          create: (_) => ClientListBloc(clientRepository)..add(ClientListEventFetched()),
           child: const ClientListTable()
       ),
     ));
