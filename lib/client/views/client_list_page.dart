@@ -108,6 +108,7 @@ class ClientListDataSource extends DataTableSource {
       DataCell(Text(_clients[index].compteur?.number ?? "")),
       DataCell(Text(_clients[index].rang.toString())),
       DataCell(DropdownClientState(
+        key: Key('dropdown_state_$index'),
         selectedState: _clients[index].state,
         onChanged: (ClientState? state) {
           showDialog(context: _context, builder: (context) {
@@ -130,6 +131,7 @@ class ClientListDataSource extends DataTableSource {
         },
       )),
       DataCell(DropdownClientCategory(
+        key: Key('dropdown_category_$index'),
         selectedCategory: _clients[index].category,
         onChanged: (ClientCategory? category) {
           showDialog(context: _context, builder: (context) {

@@ -60,20 +60,52 @@ void main() {
     expectContainsText('Il n\'y a pas encore de clients');
   });
 
-  testWidgets("should udpate element", (tester) async {
+  testWidgets("should udpate state", (tester) async {
     await pumpWidget(tester, [clientStub]);
 
     await tester.idle();
-    await tester.pump();
+    await tester.pumpAndSettle();
 
-    final updateSate = find.descendant(
-        of: find.byKey(const Key('updateState_0')),
-        matching: find.byIcon(Icons.change_circle)
-    );
-    await tester.tap(updateSate);
-    await tester.pump();
+    await tester.ensureVisible(find.byKey(const Key("dropdown_state_0")));
+    await tester.tap(find.byKey(const Key("dropdown_state_0")));
+    await tester.pumpAndSettle();
 
-    expect(const AlertDialog(), findsOneWidget);
+    await tester.tap(find.text(ClientState.active.data.label).last);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AlertDialog), findsOneWidget);
+
+    await tester.tap(find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.text("Ok")
+    ));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AlertDialog), findsNothing);
+  });
+
+  testWidgets("should udpate category", (tester) async {
+    await pumpWidget(tester, [clientStub]);
+
+    await tester.idle();
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.byKey(const Key("dropdown_category_0")));
+    await tester.tap(find.byKey(const Key("dropdown_category_0")));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text(ClientCategory.private.data.label).last);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AlertDialog), findsOneWidget);
+
+    await tester.tap(find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.text("Ok")
+    ));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AlertDialog), findsNothing);
   });
 }
 
