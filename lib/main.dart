@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:bluetouch/client/views/client_list_page.dart';
 import 'package:bluetouch/data/client_firestore_repository.dart';
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
 
     WidgetsFlutterBinding.ensureInitialized();
     return MaterialApp(
+      scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
@@ -53,4 +56,13 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+  };
 }

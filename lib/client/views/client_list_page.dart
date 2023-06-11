@@ -51,31 +51,34 @@ class ClientListPage extends StatelessWidget {
                           ],
                         );
                       }
-                      return PaginatedDataTable(
-                        source: ClientListDataSource(state.clients, context),
-                        header: const Text('Liste des clients'),
-                        rowsPerPage: 10,
-                        actions: [
-                          ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(Icons.add),
-                              label: const Text("Nouveau")),
-                        ],
-                        columns: [
-                          buildTableTitle("Numéro de contrat"),
-                          buildTableTitle("Nom"),
-                          buildTableTitle("Prénom"),
-                          buildTableTitle("Rue"),
-                          buildTableTitle("Adresse"),
-                          buildTableTitle("Téléphone"),
-                          buildTableTitle("GPS"),
-                          buildTableTitle("Référence client"),
-                          buildTableTitle("Compteur"),
-                          buildTableTitle("Rang"),
-                          buildTableTitle("Etat"),
-                          buildTableTitle("Catégorie d'abonnement"),
-                          buildTableTitle("Compte courent"),
-                        ],
+                      return Scrollbar(
+                        child: PaginatedDataTable(
+                          primary: true,
+                          source: ClientListDataSource(state.clients, context),
+                          header: const Text('Liste des clients'),
+                          rowsPerPage: 10,
+                          actions: [
+                            ElevatedButton.icon(
+                                onPressed: () {},
+                                icon: const Icon(Icons.add),
+                                label: const Text("Nouveau")),
+                          ],
+                          columns: [
+                            buildTableTitle("Numéro de contrat"),
+                            buildTableTitle("Nom"),
+                            buildTableTitle("Prénom"),
+                            buildTableTitle("Rue"),
+                            buildTableTitle("Adresse"),
+                            buildTableTitle("Téléphone"),
+                            buildTableTitle("GPS"),
+                            buildTableTitle("Référence client"),
+                            buildTableTitle("Compteur"),
+                            buildTableTitle("Rang"),
+                            buildTableTitle("Etat"),
+                            buildTableTitle("Catégorie d'abonnement"),
+                            buildTableTitle("Compte courent"),
+                          ],
+                        ),
                       );
                   }
                 }
