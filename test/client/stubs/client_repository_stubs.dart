@@ -25,4 +25,9 @@ class FakeClientRepository implements ClientRepository {
   Future<void> updateClientCategory(String id, ClientCategory category) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> installBranchement(String clientId, DateTime date, double index) {
+    throw UnimplementedError();
+  }
 }

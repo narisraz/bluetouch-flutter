@@ -1,3 +1,4 @@
+import 'package:bluetouch/client/models/branchement.dart';
 import 'package:bluetouch/client/models/client_category.dart';
 import 'package:bluetouch/client/models/client_state.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
@@ -38,5 +39,27 @@ void main() {
 
     var afterUpdate = await firestore.collection("clients").doc(beforeUpdate.id).get();
     expect(afterUpdate['category'], ClientCategory.borneFontaine.name);
+  });
+
+  test("install branchement", () async {
+    final firestore = FakeFirebaseFirestore();
+    var client = await firestore.collection("clients").add(clientStub.toJson());
+
+    final startDate = DateTime(2023, 1, 1);
+    const double startIndex = 200;
+    final ClientRepository clientRepository = ClientFirestoreRepository(firestore);
+    await clientRepository.installBranchement(client.id, startDate, startIndex);
+
+    var branchements = await firestore.collection("branchements")
+      .orderBy('date', descending: true)
+      .where(
+        'clientId',
+        isEqualTo: client.id,
+      ).get();
+    Branchement branchement = Branchement.fromJson(branchements.docs.first.data());
+
+    expect(branchement.date, startDate);
+    expect(branchement.index, startIndex);
+    expect(branchement.clientId, client.id);
   });
 }

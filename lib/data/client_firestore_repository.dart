@@ -48,6 +48,15 @@ class ClientFirestoreRepository implements ClientRepository {
     });
   }
 
+  @override
+  Future<void> installBranchement(String clientId, DateTime date, double index) {
+    return firebaseFirestore.collection('branchements').add({
+      'clientId': clientId,
+      'date': date.millisecondsSinceEpoch,
+      'index': index
+    });
+  }
+
   Future<Address?> getAddress(Map<String, dynamic>? data) async {
     if (data?.containsKey("address") == false) {
       return Future.value();

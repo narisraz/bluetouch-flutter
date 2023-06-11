@@ -6,4 +6,5 @@ abstract class ClientRepository {
   Future<List<Client>> getAll();
   Future<void> updateClientState(String id, ClientState state);
   Future<void> updateClientCategory(String id, ClientCategory category);
+  Future<void> installBranchement(String clientId, DateTime date, double index);
 }
