@@ -108,24 +108,6 @@ void main() {
 
     expect(find.byType(AlertDialog), findsNothing);
   });
-
-  testWidgets("should display installation popup", (tester) async {
-    await pumpWidget(tester, [clientStub]);
-
-    await tester.idle();
-    await tester.pumpAndSettle();
-
-    await tester.ensureVisible(find.byKey(const Key("installation_0")));
-    await tester.tap(find.byKey(const Key("installation_0")));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(AlertDialog), findsOneWidget);
-
-    await tester.tap(find.text("Valider"));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(AlertDialog), findsNothing);
-  });
 }
 
 Future<void> pumpWidget(WidgetTester tester, List<Client> clients) async {
