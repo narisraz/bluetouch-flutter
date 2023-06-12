@@ -1,4 +1,5 @@
 import 'package:bluetouch/auth/bloc/auth_bloc.dart';
+import 'package:bluetouch/responsive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,16 +23,17 @@ class LoginPage extends StatelessWidget {
         body: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Container(
-                height: double.infinity,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "https://upload.wikimedia.org/wikipedia/commons/f/f4/Madagascar_%2828262716001%29.jpg"))),
+            if (!ResponsiveUtils.isMobile(context))
+              Expanded(
+                child: Container(
+                  height: double.infinity,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              "https://upload.wikimedia.org/wikipedia/commons/f/f4/Madagascar_%2828262716001%29.jpg"))),
+                ),
               ),
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
