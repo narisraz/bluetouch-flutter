@@ -1,7 +1,11 @@
 import 'dart:ui';
 
+import 'package:bluetouch/auth/bloc/auth_bloc.dart';
+import 'package:bluetouch/auth/repository/auth_repository.dart';
+import 'package:bluetouch/auth/views/login_page.dart';
 import 'package:bluetouch/client/repository/client_repository.dart';
 import 'package:bluetouch/client/views/client_list_page.dart';
+import 'package:bluetouch/data/auth_firebase_provider.dart';
 import 'package:bluetouch/data/client_firestore_repository.dart';
 import 'package:bluetouch/drawer.dart';
 import 'package:bluetouch/firebase_options.dart';
@@ -32,24 +36,41 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Bluetouch"),
-          actions: [
-            DropdownButton(
-              items: const [DropdownMenuItem(child: Text("Sabotsy Namehana"))],
-              onChanged: (_) {},
-            )
-          ],
-        ),
-        drawer: const AppDrawer(),
-        body: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<ClientRepository>(create: (_) => ClientFirestoreRepository(firestore)),
-          ],
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: const ClientListPage(),
+      home: RepositoryProvider<AuthProvider>(
+        create: (BuildContext context) => AuthFirebaseProvider(),
+        child: BlocProvider(
+          create: (context) => AuthBloc(context),
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state.authStatus != AuthStatus.loggedIn) {
+                return const LoginPage();
+              } else {
+                return Scaffold(
+                  appBar: AppBar(
+                    title: const Text("Bluetouch"),
+                    actions: [
+                      DropdownButton(
+                        items: const [
+                          DropdownMenuItem(child: Text("Sabotsy Namehana"))
+                        ],
+                        onChanged: (_) {},
+                      )
+                    ],
+                  ),
+                  drawer: const AppDrawer(),
+                  body: MultiRepositoryProvider(
+                    providers: [
+                      RepositoryProvider<ClientRepository>(
+                          create: (_) => ClientFirestoreRepository(firestore)),
+                    ],
+                    child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      child: const ClientListPage(),
+                    ),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),
@@ -61,7 +82,7 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
   Set<PointerDeviceKind> get dragDevices => {
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-  };
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
