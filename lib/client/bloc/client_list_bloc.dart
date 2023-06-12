@@ -15,7 +15,6 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
     on<ClientListEventFetched>(_onClientFetched);
     on<ClientListEventUpdateState>(_onUpdateState);
     on<ClientListEventUpdateCategory>(_onUpdateCategory);
-    on<ClientListEventInstallBranchement>(_onInstallBranchement);
   }
 
   FutureOr<void> _onClientFetched(ClientListEventFetched event, emit) async {
@@ -47,16 +46,6 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
   FutureOr<void> _onUpdateCategory(ClientListEventUpdateCategory event, Emitter<ClientListState> emit) async {
     try {
       await clientRepository.updateClientCategory(event.id, event.category);
-    } catch(e) {
-      emit(const ClientListState(
-          clientListStatus: ClientListStatus.failure
-      ));
-    }
-  }
-
-  FutureOr<void> _onInstallBranchement(ClientListEventInstallBranchement event, Emitter<ClientListState> emit) async {
-    try {
-      await clientRepository.installBranchement(event.clientId, event.date, event.startIndex);
     } catch(e) {
       emit(const ClientListState(
           clientListStatus: ClientListStatus.failure

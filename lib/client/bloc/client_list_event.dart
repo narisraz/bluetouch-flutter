@@ -18,10 +18,3 @@ class ClientListEventUpdateCategory extends ClientListEvent {
 
   ClientListEventUpdateCategory(this.id, this.category);
 }
-class ClientListEventInstallBranchement extends ClientListEvent {
-  final String clientId;
-  final DateTime date;
-  final double startIndex;
-
-  ClientListEventInstallBranchement(this.clientId, this.date, this.startIndex);
-}

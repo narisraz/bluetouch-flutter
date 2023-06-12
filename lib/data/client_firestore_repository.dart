@@ -53,6 +53,7 @@ class ClientFirestoreRepository implements ClientRepository {
     return firebaseFirestore.collection('branchements').add({
       'clientId': clientId,
       'date': date.millisecondsSinceEpoch,
+      'insertDate': DateTime.now(),
       'index': index
     });
   }

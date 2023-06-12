@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         drawer: const AppDrawer(),
         body: MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<ClientRepository>(create: (_) => ClientFirestoreRepository(firestore))
+            RepositoryProvider<ClientRepository>(create: (_) => ClientFirestoreRepository(firestore)),
           ],
           child: Container(
             padding: const EdgeInsets.all(16.0),

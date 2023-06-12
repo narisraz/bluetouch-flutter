@@ -27,7 +27,7 @@ class ClientListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ClientListBloc(context)..add(ClientListEventFetched()),
+      create: (BuildContext context) => ClientListBloc(context)..add(ClientListEventFetched()),
       child: Scrollbar(
         child: ListView(
           children: [
@@ -163,7 +163,7 @@ class ClientListDataSource extends DataTableSource {
       DataCell(Text(_clients[index].account.toString())),
       DataCell(Row(
         children: [
-          IconInstallBranchement(context: _context, client: _clients[index])
+          IconInstallBranchement(client: _clients[index]).build(_context)
         ],
       )),
     ]);
