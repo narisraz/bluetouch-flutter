@@ -1,0 +1,222 @@
+{
+  "project_info": {
+    "project_number": "588156938455",
+    "project_id": "bluetouch-81627",
+    "storage_bucket": "bluetouch-81627.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588156938455:android:f36aaa34ccc73a12736892",
+        "android_client_info": {
+          "package_name": "com.example.bluetouch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZgSRgVJh6POhx5rOYBu79JiUq7qmrCWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "588156938455-3q7596k6n8p0j48f2rg2d1fv56rjcgjd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.siran.bluetouch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588156938455:android:1975900043724b1a736892",
+        "android_client_info": {
+          "package_name": "com.mycompany.bluetouch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588156938455-hgkk876g7f93opf7odt7sresl1g9bnit.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.bluetouch",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZgSRgVJh6POhx5rOYBu79JiUq7qmrCWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "588156938455-3q7596k6n8p0j48f2rg2d1fv56rjcgjd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.siran.bluetouch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588156938455:android:6f0590b676a3301d736892",
+        "android_client_info": {
+          "package_name": "com.mycompany.bluetouchadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588156938455-8bll9ie1b3afn58pu02jatd97c16oj1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.bluetouchadmin",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZgSRgVJh6POhx5rOYBu79JiUq7qmrCWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "588156938455-3q7596k6n8p0j48f2rg2d1fv56rjcgjd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.siran.bluetouch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588156938455:android:4cd2ec1a6be27e2d736892",
+        "android_client_info": {
+          "package_name": "com.siran.bluetouch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588156938455-ur8ahe1tbutqerm2kg2bcbqm7hs1j548.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.siran.bluetouch",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZgSRgVJh6POhx5rOYBu79JiUq7qmrCWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "588156938455-3q7596k6n8p0j48f2rg2d1fv56rjcgjd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.siran.bluetouch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588156938455:android:901ae3a145bce84a736892",
+        "android_client_info": {
+          "package_name": "com.siran.bluetouchbackend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588156938455-0dsj1nnvptf6p4vhrt5icereus8ivs9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.siran.bluetouchbackend",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZgSRgVJh6POhx5rOYBu79JiUq7qmrCWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588156938455-pmaivevem86c4k5pf1e0u0ip3pabk5ih.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "588156938455-3q7596k6n8p0j48f2rg2d1fv56rjcgjd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.siran.bluetouch"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
