@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
             DropdownButton(
               items: const [DropdownMenuItem(child: Text("Sabotsy Namehana"))],
               onChanged: (_) {},
-              style: const TextStyle(color: Colors.white),
             )
           ],
         ),

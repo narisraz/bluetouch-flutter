@@ -18,9 +18,9 @@ const RESOURCES = {
 "assets/AssetManifest.json": "2efbb41d7877d10aac9d091f58ccd7b9",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "manifest.json": "f1ee5f16f8bb3c3888e18ec9c38733e6",
-"main.dart.js": "945898b6dffc29629cf043e0857e4575",
-"index.html": "50fdc70f16568138fd14b0dc63128c29",
-"/": "50fdc70f16568138fd14b0dc63128c29",
+"main.dart.js": "2a0a9e8bae34602b8e34c18aaf6fc70b",
+"index.html": "de49cf418abf90240e38c34058f0389a",
+"/": "de49cf418abf90240e38c34058f0389a",
 "flutter.js": "a85fcf6324d3c4d3ae3be1ae4931e9c5",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796"
 };
