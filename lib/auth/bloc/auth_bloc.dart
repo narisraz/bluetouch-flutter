@@ -11,17 +11,18 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late final BuildContext _context;
-  late final AuthProvider _authRepository;
+  late final AuthProvider _authProvider;
 
   AuthBloc(this._context) : super(const AuthState()) {
-    _authRepository = RepositoryProvider.of(_context);
+    _authProvider = RepositoryProvider.of(_context);
     on<AuthEventLogin>(_onLogin);
     on<AuthEventInitial>(_onAuthInitial);
+    on<AuthEventLogout>(_onLogout);
   }
 
   FutureOr<void> _onLogin(AuthEventLogin event, Emitter<AuthState> emit) async {
     try {
-      final authUser = await _authRepository.login(event.email, event.password);
+      final authUser = await _authProvider.login(event.email, event.password);
       if (authUser != null) {
         emit(AuthState(
             authenticatedUser: authUser, authStatus: AuthStatus.loggedIn));
@@ -35,6 +36,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _onAuthInitial(
       AuthEventInitial event, Emitter<AuthState> emit) {
-    emit(const AuthState());
+    emit(AuthState(
+        authStatus: event.authStatus, authenticatedUser: event.authUser));
+  }
+
+  FutureOr<void> _onLogout(
+      AuthEventLogout event, Emitter<AuthState> emit) async {
+    try {
+      await _authProvider.logout();
+      emit(const AuthState(authStatus: AuthStatus.loggedOut));
+    } on Exception catch (e) {
+      emit(const AuthState(authStatus: AuthStatus.fail));
+    }
   }
 }

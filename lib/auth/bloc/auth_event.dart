@@ -5,6 +5,11 @@ abstract class AuthEvent extends Equatable {
 }
 
 class AuthEventInitial extends AuthEvent {
+  final AuthStatus authStatus;
+  final AuthUser? authUser;
+
+  const AuthEventInitial({this.authStatus = AuthStatus.initial, this.authUser});
+
   @override
   List<Object?> get props => [];
 }
@@ -17,4 +22,9 @@ class AuthEventLogin extends AuthEvent {
 
   @override
   List<Object?> get props => [email, password];
+}
+
+class AuthEventLogout extends AuthEvent {
+  @override
+  List<Object?> get props => [];
 }
