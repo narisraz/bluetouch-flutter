@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
 
     WidgetsFlutterBinding.ensureInitialized();
     return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
       scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
       home: RepositoryProvider<AuthProvider>(
