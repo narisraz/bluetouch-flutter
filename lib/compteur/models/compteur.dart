@@ -1,11 +1,16 @@
 import 'package:bluetouch/compteur/models/compteur_state.dart';
 
 class Compteur {
-  late final String number;
-  late final String brand;
-  late DateTime manufacturingDate;
-  late String classe;
-  late CompteurState compteurState;
+  final String number;
+  final String? brand;
+  final DateTime? manufacturingDate;
+  final String? classe;
+  final CompteurState compteurState;
 
-  Compteur(this.number, this.compteurState);
+  Compteur(
+      {required this.number,
+      required this.compteurState,
+      this.brand,
+      this.classe,
+      this.manufacturingDate});
 }
