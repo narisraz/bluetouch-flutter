@@ -1,6 +1,6 @@
+import 'package:bluetouch/client/config/use_case.dart';
 import 'package:bluetouch/client/domain/models/branchement.dart';
 import 'package:bluetouch/client/domain/models/client.dart';
-import 'package:bluetouch/client/module_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';

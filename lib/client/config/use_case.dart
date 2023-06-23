@@ -1,3 +1,4 @@
+import 'package:bluetouch/client/config/repository.dart';
 import 'package:bluetouch/client/domain/usecases/add_branchement_use_case.dart';
 import 'package:bluetouch/client/domain/usecases/get_all_saep_client_use_case.dart';
 import 'package:bluetouch/client/domain/usecases/get_barnchement_use_case.dart';
@@ -10,9 +11,7 @@ import 'package:bluetouch/client/domain/usecases/update_client_category_use_case
 import 'package:bluetouch/client/domain/usecases/update_client_state_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'module_repository.dart';
-
-part 'module_use_case.g.dart';
+part 'use_case.g.dart';
 
 @riverpod
 GetAllSaepClient getAllSaepClient(GetAllSaepClientRef ref) =>

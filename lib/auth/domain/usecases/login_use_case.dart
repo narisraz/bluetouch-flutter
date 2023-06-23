@@ -1,6 +1,6 @@
 import 'package:bluetouch/auth/domain/models/auth_result.dart';
 import 'package:bluetouch/auth/domain/repository/auth_repository.dart';
-import 'package:bluetouch/auth/domain/usecases/login.dart';
+import 'package:bluetouch/auth/domain/usecases/interfaces/login.dart';
 
 class LoginUseCase extends Login {
   final AuthRepository authRepository;

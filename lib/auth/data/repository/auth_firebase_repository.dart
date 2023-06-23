@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bluetouch/auth/domain/models/auth_exception.dart';
 import 'package:bluetouch/auth/domain/models/auth_result.dart';
 import 'package:bluetouch/auth/domain/models/auth_user.dart';
@@ -18,22 +20,11 @@ class AuthFirebaseRepository extends AuthRepository {
         email: email, password: password);
     var user = userCredential.user;
     if (user != null) {
-      try {
-        var userDocument = await firebaseFirestore
-            .collection("users")
-            .where("uid", isEqualTo: user.uid)
-            .get();
-        final AuthUser authUser =
-            AuthUser.fromJson(userDocument.docs.first.data());
-        if (authUser.role != AuthUserRole.admin) {
-          await logout();
-          return AuthResult(
-              success: false, exception: BadCredentialException());
-        }
-        return AuthResult(success: true);
-      } catch (e) {
-        await logout();
-      }
+      final AuthUser? authUser = await getCurrentLoggedInUser();
+      return AuthResult(
+        success: true,
+        authUser: authUser,
+      );
     }
     return AuthResult(success: false, exception: BadCredentialException());
   }
@@ -49,10 +40,10 @@ class AuthFirebaseRepository extends AuthRepository {
     if (user != null) {
       var userDocument = await firebaseFirestore
           .collection("users")
-          .where("uid", isEqualTo: user.uid)
+          .where("userName", isEqualTo: user.email)
           .get();
       return AuthUser.fromJson(userDocument.docs.first.data());
     }
-    return Future.value();
+    return null;
   }
 }

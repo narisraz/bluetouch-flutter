@@ -1,8 +1,8 @@
+import 'package:bluetouch/client/config/use_case.dart';
 import 'package:bluetouch/client/domain/models/client_category.dart';
 import 'package:bluetouch/client/domain/models/client_state.dart';
 import 'package:bluetouch/client/domain/usecases/interfaces/update_client_category.dart';
 import 'package:bluetouch/client/domain/usecases/interfaces/update_client_state.dart';
-import 'package:bluetouch/client/module_use_case.dart';
 import 'package:bluetouch/client/presentation/components/dropdown_client_category.dart';
 import 'package:bluetouch/client/presentation/components/dropdown_client_state.dart';
 import 'package:bluetouch/client/presentation/components/icon_install_branchement.dart';
@@ -19,6 +19,8 @@ class ClientListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final name = authUser?.name ?? "";
+    // debugPrint('ClientListPage ${authUser.toString()}');
     // TODO get current saep
     final clientsStream = ref.read(getAllSaepClientProvider).execute("saepId");
     final updateClientState = ref.read(updateClientStateProvider);
@@ -31,7 +33,7 @@ class ClientListPage extends ConsumerWidget {
             stream: clientsStream,
             builder: (builder, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.connectionState == ConnectionState.active) {
                 return Scrollbar(
                   child: PaginatedDataTable(
@@ -43,7 +45,7 @@ class ClientListPage extends ConsumerWidget {
                       updateClientState: updateClientState,
                       updateClientCategory: updateClientCategory,
                     ),
-                    header: const Text('Liste des clients'),
+                    header: Text('Liste des clients'),
                     rowsPerPage: 10,
                     actions: [
                       ElevatedButton.icon(

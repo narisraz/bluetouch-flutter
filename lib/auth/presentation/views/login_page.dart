@@ -1,8 +1,7 @@
+import 'package:bluetouch/auth/config/use_case.dart';
 import 'package:bluetouch/auth/domain/models/auth_exception.dart';
-import 'package:bluetouch/auth/module.dart';
 import 'package:bluetouch/responsive_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginPage extends HookConsumerWidget {
@@ -12,13 +11,6 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
-
-    final isAboutToLogin = useState(false);
-    if (isAboutToLogin.value == false) {
-      showDialog(
-          context: context,
-          builder: (context) => const CircularProgressIndicator());
-    }
 
     return Scaffold(
       body: Row(
@@ -73,13 +65,11 @@ class LoginPage extends HookConsumerWidget {
                             label: Text("Mot de passe"),
                             icon: Icon(Icons.lock)),
                         onFieldSubmitted: (_) {
-                          isAboutToLogin.value = true;
                           processLogin(
                               ref: ref,
                               context: context,
                               email: emailController.text,
                               password: passwordController.text);
-                          isAboutToLogin.value = false;
                         },
                       ),
                     ),
@@ -88,13 +78,11 @@ class LoginPage extends HookConsumerWidget {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          isAboutToLogin.value = true;
                           processLogin(
                               ref: ref,
                               context: context,
                               email: emailController.text,
                               password: passwordController.text);
-                          isAboutToLogin.value = false;
                         },
                         child: const Text("Se connecter"))
                   ],
