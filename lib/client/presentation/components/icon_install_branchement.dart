@@ -37,13 +37,19 @@ class IconInstallBranchement extends ConsumerWidget {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                CircularProgressIndicator(),
+                              ],
+                            );
                           }
                           if (snapshot.connectionState ==
-                              ConnectionState.active) {
+                              ConnectionState.done) {
                             final branchement = snapshot.data;
                             dateController.text = DateFormat("dd/MM/yyyy")
-                                .format(branchement?.date ?? DateTime.now());
+                                .format(DateTime.parse(branchement?.date ??
+                                    DateTime.now().toString()));
                             indexController.text =
                                 (branchement?.index ?? 0).toString();
                             return Form(
@@ -58,12 +64,16 @@ class IconInstallBranchement extends ConsumerWidget {
                                     controller: dateController,
                                     onTap: () async {
                                       var pickedDate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate:
-                                              DateTime(DateTime.now().year - 1),
-                                          lastDate: DateTime(
-                                              DateTime.now().year + 1));
+                                        confirmText: "Ok",
+                                        cancelText: "Annuler",
+                                        locale: const Locale("fr", "FR"),
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate:
+                                            DateTime(DateTime.now().year - 1),
+                                        lastDate:
+                                            DateTime(DateTime.now().year + 1),
+                                      );
                                       if (pickedDate != null) {
                                         String formattedDate =
                                             DateFormat("dd/MM/yyyy")
@@ -99,14 +109,15 @@ class IconInstallBranchement extends ConsumerWidget {
                       );
                     }),
                     actions: [
-                      TextButton(
+                      ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               addBranchement.execute(
                                 Branchement(
                                     clientId: client.id!,
                                     date: DateFormat("dd/MM/yyyy")
-                                        .parse(dateController.text),
+                                        .parse(dateController.text)
+                                        .toString(),
                                     insertDate: DateTime.now(),
                                     index:
                                         double.tryParse(indexController.text) ??
@@ -116,7 +127,7 @@ class IconInstallBranchement extends ConsumerWidget {
                             }
                           },
                           child: const Text("Valider")),
-                      TextButton(
+                      ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
