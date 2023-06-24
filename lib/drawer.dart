@@ -1,4 +1,5 @@
 import 'package:bluetouch/auth/config/repository.dart';
+import 'package:bluetouch/auth/config/state.dart';
 import 'package:bluetouch/auth/domain/models/auth_user.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +11,8 @@ class AppDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authUser = ref.watch(authStateProvider);
+
     return Drawer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

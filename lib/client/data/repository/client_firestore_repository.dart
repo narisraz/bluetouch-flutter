@@ -15,7 +15,7 @@ class ClientFirestoreRepository extends ClientRepository {
         .collection("clients")
         .where("saepId", isEqualTo: saepId)
         .snapshots()
-        .map((event) => event.docs.map((e) => Client.fromJson(e.data())));
+        .map((event) => event.docs.map(_dataWithId));
   }
 
   @override
@@ -32,5 +32,11 @@ class ClientFirestoreRepository extends ClientRepository {
         .collection("clients")
         .doc(id)
         .update({'state': state.name});
+  }
+
+  Client _dataWithId(e) {
+    Map<String, dynamic> data = e.data();
+    data.putIfAbsent("id", () => e.id);
+    return Client.fromJson(data);
   }
 }

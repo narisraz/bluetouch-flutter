@@ -7,6 +7,7 @@ import 'package:bluetouch/client/presentation/components/dropdown_client_categor
 import 'package:bluetouch/client/presentation/components/dropdown_client_state.dart';
 import 'package:bluetouch/client/presentation/components/icon_install_branchement.dart';
 import 'package:bluetouch/client/presentation/extensions/client_state_extension.dart';
+import 'package:bluetouch/core/config/state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,10 +20,18 @@ class ClientListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final name = authUser?.name ?? "";
-    // debugPrint('ClientListPage ${authUser.toString()}');
-    // TODO get current saep
-    final clientsStream = ref.read(getAllSaepClientProvider).execute("saepId");
+    final currentSaep = ref.watch(coreStateProvider).currentSaep;
+
+    if (currentSaep == null) {
+      return Column(
+        children: const [
+          Center(child: CircularProgressIndicator()),
+        ],
+      );
+    }
+
+    final clientsStream =
+        ref.read(getAllSaepClientProvider).execute(currentSaep.id!);
     final updateClientState = ref.read(updateClientStateProvider);
     final updateClientCategory = ref.read(updateClientCategoryProvider);
 
@@ -45,7 +54,7 @@ class ClientListPage extends ConsumerWidget {
                       updateClientState: updateClientState,
                       updateClientCategory: updateClientCategory,
                     ),
-                    header: Text('Liste des clients'),
+                    header: const Text('Liste des clients'),
                     rowsPerPage: 10,
                     actions: [
                       ElevatedButton.icon(
@@ -128,14 +137,14 @@ class ClientListDataSource extends DataTableSource {
                   content: Text(
                       "Souhaitez-vous vraiment changer l'état de ce client en ${state?.data.label} ?"),
                   actions: [
-                    TextButton(
+                    ElevatedButton(
                         onPressed: () {
                           updateClientState
                               .execute(clients[index].id!, state!)
                               .then((_) => Navigator.pop(context));
                         },
                         child: const Text("Ok")),
-                    TextButton(
+                    ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -157,14 +166,14 @@ class ClientListDataSource extends DataTableSource {
                   content: Text(
                       "Souhaitez-vous vraiment changer la catégorie de ce client en ${category?.data.label} ?"),
                   actions: [
-                    TextButton(
+                    ElevatedButton(
                         onPressed: () {
                           updateClientCategory
                               .execute(clients[index].id!, category!)
                               .then((_) => Navigator.pop(context));
                         },
                         child: const Text("Ok")),
-                    TextButton(
+                    ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
