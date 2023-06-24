@@ -1,6 +1,7 @@
 import 'package:bluetouch/auth/config/state.dart';
 import 'package:bluetouch/auth/presentation/views/login_page.dart';
 import 'package:bluetouch/client/presentation/views/client_list_page.dart';
+import 'package:bluetouch/core/presentation/views/dropdown_saep.dart';
 import 'package:bluetouch/drawer.dart';
 import 'package:bluetouch/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,16 +43,21 @@ class MyApp extends HookConsumerWidget {
         useMaterial3: true,
       ),
       home: Builder(builder: (context) {
-        final authUser = ref.watch(authStateProvider);
-
         if (!loggedIn.value) {
           return const Scaffold(body: LoginPage());
         }
+
         return Scaffold(
           appBar: AppBar(
             title: const Text("Bluetouch"),
+            actions: const [
+              DropdownSaep(),
+              SizedBox(
+                width: 16,
+              )
+            ],
           ),
-          drawer: AppDrawer(authUser: authUser),
+          drawer: const AppDrawer(),
           body: Container(
             padding: const EdgeInsets.all(16.0),
             child: const ClientListPage(),
