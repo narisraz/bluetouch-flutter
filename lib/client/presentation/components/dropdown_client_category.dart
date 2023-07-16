@@ -11,6 +11,7 @@ class DropdownClientCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
+      isExpanded: true,
       value: selectedCategory,
       items: ClientCategory.values
           .map((state) =>
