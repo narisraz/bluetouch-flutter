@@ -1,9 +1,10 @@
 import 'package:bluetouch/client/domain/models/client_category.dart';
 import 'package:bluetouch/client/presentation/components/dropdown_client_category.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AddClientPage extends ConsumerWidget {
+class AddClientPage extends HookConsumerWidget {
   const AddClientPage({
     super.key,
     required this.nameController,
@@ -33,6 +34,7 @@ class AddClientPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final clientCategory = useState(categoryController.text);
     return Form(
       child: Wrap(
         children: [
@@ -100,11 +102,11 @@ class AddClientPage extends ConsumerWidget {
             padding: const EdgeInsets.only(top: 8),
             child: DropdownClientCategory(
                 onChanged: (value) {
-                  categoryController.text =
-                      value?.name ?? ClientCategory.borneFontaine.name;
+                  clientCategory.value = value!.name;
+                  categoryController.text = clientCategory.value;
                 },
                 selectedCategory:
-                    ClientCategory.values.byName(categoryController.text)),
+                    ClientCategory.values.byName(clientCategory.value)),
           )
         ],
       ),
