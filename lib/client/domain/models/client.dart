@@ -42,7 +42,8 @@ class Client extends Equatable {
         'reference': reference,
         'category': category.name,
         'state': state.name,
-        'saepId': saepId
+        'saepId': saepId,
+        'rang': rang
       };
 
   static Client fromJson(Map<String, dynamic> data) {

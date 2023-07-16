@@ -1,4 +1,5 @@
 import 'package:bluetouch/client/config/use_case.dart';
+import 'package:bluetouch/client/domain/models/address.dart';
 import 'package:bluetouch/client/domain/models/client.dart';
 import 'package:bluetouch/client/domain/models/client_category.dart';
 import 'package:bluetouch/client/domain/models/client_state.dart';
@@ -70,6 +71,14 @@ class ButtonAddClient extends ConsumerWidget {
                           final currentSaepId =
                               ref.read(coreStateProvider).currentSaep!.id!;
                           final client = Client(
+                            address: Address(
+                              rue: rueController.text,
+                              address: addressController.text,
+                              lat: latController.text,
+                              long: longController.text,
+                            ),
+                            tel: telController.text,
+                            rang: int.tryParse(rangController.text) ?? 0,
                             saepId: currentSaepId,
                             contractNumber:
                                 int.parse(contractNumberController.text),
