@@ -5,4 +5,13 @@ class Address {
   final String? long;
 
   Address({this.rue, this.address, this.lat, this.long});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'rue': rue,
+      'address': address,
+      'lat': lat,
+      'long': long,
+    };
+  }
 }
