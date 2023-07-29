@@ -3,6 +3,7 @@ import 'package:bluetouch/client/domain/models/client_category.dart';
 import 'package:bluetouch/client/domain/models/client_state.dart';
 import 'package:bluetouch/client/domain/usecases/interfaces/update_client_category.dart';
 import 'package:bluetouch/client/domain/usecases/interfaces/update_client_state.dart';
+import 'package:bluetouch/client/presentation/components/button_add_client.dart';
 import 'package:bluetouch/client/presentation/components/dropdown_client_category.dart';
 import 'package:bluetouch/client/presentation/components/dropdown_client_state.dart';
 import 'package:bluetouch/client/presentation/components/icon_install_branchement.dart';
@@ -56,11 +57,8 @@ class ClientListPage extends ConsumerWidget {
                     ),
                     header: const Text('Liste des clients'),
                     rowsPerPage: 10,
-                    actions: [
-                      ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(Icons.add),
-                          label: const Text("Nouveau")),
+                    actions: const [
+                      ButtonAddClient(),
                     ],
                     columns: [
                       buildTableTitle("Numéro de contrat", numeric: true),
@@ -117,11 +115,41 @@ class ClientListDataSource extends DataTableSource {
       DataCell(Text(clients[index].contractNumber.toString())),
       DataCell(Text(clients[index].name)),
       DataCell(Text(clients[index].firstName)),
-      DataCell(Text(clients[index].address?.rue ?? "")),
-      DataCell(Text(clients[index].address?.address ?? "")),
+      DataCell(StreamBuilder(
+        stream: clients[index].address,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else {
+            return Text(snapshot.data?.rue ?? "");
+          }
+        },
+      )),
+      DataCell(StreamBuilder(
+        stream: clients[index].address,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else {
+            return Text(snapshot.data?.address ?? "");
+          }
+        },
+      )),
       DataCell(Text(clients[index].tel ?? "")),
-      DataCell(Text(
-          '${clients[index].address?.lat};${clients[index].address?.long}')),
+      DataCell(StreamBuilder(
+        stream: clients[index].address,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else {
+            if (snapshot.data?.lat != null && snapshot.data?.long != null) {
+              return Text('${snapshot.data?.lat};${snapshot.data?.long}');
+            } else {
+              return const Center();
+            }
+          }
+        },
+      )),
       DataCell(Text(clients[index].reference)),
       DataCell(Text(clients[index].compteur?.number ?? "")),
       DataCell(Text(clients[index].rang.toString())),

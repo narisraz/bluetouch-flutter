@@ -8,4 +8,6 @@ abstract class ClientRepository {
   Future<void> updateClientState(String id, ClientState state);
 
   Future<void> updateClientCategory(String id, ClientCategory category);
+
+  Future<void> addClient(Client client);
 }

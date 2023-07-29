@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 
 class Client extends Equatable {
   final int contractNumber;
+  final String saepId;
   final String name;
   final String firstName;
   final String reference;
@@ -15,22 +16,24 @@ class Client extends Equatable {
   final String? tel;
   final int? rang;
   final double? account;
-  final Address? address;
-  final Compteur? compteur;
+  late Stream<Address?>? address;
+  late Compteur? compteur;
 
-  const Client(
-      {required this.contractNumber,
-      required this.name,
-      required this.firstName,
-      required this.reference,
-      required this.category,
-      required this.state,
-      this.id,
-      this.tel,
-      this.rang,
-      this.account,
-      this.compteur,
-      this.address});
+  Client({
+    required this.saepId,
+    required this.contractNumber,
+    required this.name,
+    required this.firstName,
+    required this.reference,
+    required this.category,
+    required this.state,
+    this.id,
+    this.tel,
+    this.rang,
+    this.account,
+    this.compteur,
+    this.address,
+  });
 
   Map<String, dynamic> toJson() => {
         'contractNumber': contractNumber,
@@ -38,11 +41,14 @@ class Client extends Equatable {
         'firstName': firstName,
         'reference': reference,
         'category': category.name,
-        'state': state.name
+        'state': state.name,
+        'saepId': saepId,
+        'rang': rang
       };
 
   static Client fromJson(Map<String, dynamic> data) {
     return Client(
+      saepId: data['saepId'],
       state: ClientState.values.byName(data['state']),
       contractNumber: data['contractNumber'],
       name: data['name'],

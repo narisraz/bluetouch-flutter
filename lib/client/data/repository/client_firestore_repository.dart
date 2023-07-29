@@ -1,13 +1,19 @@
+import 'package:bluetouch/client/domain/models/address.dart';
 import 'package:bluetouch/client/domain/models/client.dart';
 import 'package:bluetouch/client/domain/models/client_category.dart';
 import 'package:bluetouch/client/domain/models/client_state.dart';
+import 'package:bluetouch/client/domain/repository/address_repository.dart';
 import 'package:bluetouch/client/domain/repository/client_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ClientFirestoreRepository extends ClientRepository {
   final FirebaseFirestore firebaseFirestore;
+  final AddressRepository addressRepository;
 
-  ClientFirestoreRepository({required this.firebaseFirestore});
+  ClientFirestoreRepository({
+    required this.firebaseFirestore,
+    required this.addressRepository,
+  });
 
   @override
   Stream<Iterable<Client>> getAllBySaepId(String saepId) {
@@ -15,7 +21,13 @@ class ClientFirestoreRepository extends ClientRepository {
         .collection("clients")
         .where("saepId", isEqualTo: saepId)
         .snapshots()
-        .map((event) => event.docs.map(_dataWithId));
+        .map((event) => event.docs.map((client) {
+              final address =
+                  addressRepository.getById(client.data()['address']);
+              final clientWithId = _dataWithId(client);
+              clientWithId.address = address;
+              return clientWithId;
+            }));
   }
 
   @override
@@ -32,6 +44,18 @@ class ClientFirestoreRepository extends ClientRepository {
         .collection("clients")
         .doc(id)
         .update({'state': state.name});
+  }
+
+  @override
+  Future<void> addClient(Client client) async {
+    String addressId = "";
+    Address? address = await client.address?.first;
+    if (address != null) {
+      addressId = await addressRepository.addAddress(address);
+    }
+    Map<String, dynamic> clientMap = client.toJson();
+    clientMap['address'] = addressId;
+    await firebaseFirestore.collection("clients").add(clientMap);
   }
 
   Client _dataWithId(e) {
