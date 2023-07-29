@@ -14,4 +14,13 @@ class Address {
       'long': long,
     };
   }
+
+  static Address fromJson(Map<String, dynamic> data) {
+    return Address(
+      long: data['long'],
+      lat: data['lat'],
+      address: data['address'],
+      rue: data['rue'],
+    );
+  }
 }

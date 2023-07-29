@@ -71,12 +71,12 @@ class ButtonAddClient extends ConsumerWidget {
                           final currentSaepId =
                               ref.read(coreStateProvider).currentSaep!.id!;
                           final client = Client(
-                            address: Address(
+                            address: Stream.value(Address(
                               rue: rueController.text,
                               address: addressController.text,
                               lat: latController.text,
                               long: longController.text,
-                            ),
+                            )),
                             tel: telController.text,
                             rang: int.tryParse(rangController.text) ?? 0,
                             saepId: currentSaepId,

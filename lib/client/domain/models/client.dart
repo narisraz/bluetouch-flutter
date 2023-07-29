@@ -16,10 +16,10 @@ class Client extends Equatable {
   final String? tel;
   final int? rang;
   final double? account;
-  final Address? address;
-  final Compteur? compteur;
+  late Stream<Address?>? address;
+  late Compteur? compteur;
 
-  const Client({
+  Client({
     required this.saepId,
     required this.contractNumber,
     required this.name,

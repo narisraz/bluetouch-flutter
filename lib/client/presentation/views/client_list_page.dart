@@ -115,11 +115,41 @@ class ClientListDataSource extends DataTableSource {
       DataCell(Text(clients[index].contractNumber.toString())),
       DataCell(Text(clients[index].name)),
       DataCell(Text(clients[index].firstName)),
-      DataCell(Text(clients[index].address?.rue ?? "")),
-      DataCell(Text(clients[index].address?.address ?? "")),
+      DataCell(StreamBuilder(
+        stream: clients[index].address,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else {
+            return Text(snapshot.data?.rue ?? "");
+          }
+        },
+      )),
+      DataCell(StreamBuilder(
+        stream: clients[index].address,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else {
+            return Text(snapshot.data?.address ?? "");
+          }
+        },
+      )),
       DataCell(Text(clients[index].tel ?? "")),
-      DataCell(Text(
-          '${clients[index].address?.lat};${clients[index].address?.long}')),
+      DataCell(StreamBuilder(
+        stream: clients[index].address,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else {
+            if (snapshot.data?.lat != null && snapshot.data?.long != null) {
+              return Text('${snapshot.data?.lat};${snapshot.data?.long}');
+            } else {
+              return const Center();
+            }
+          }
+        },
+      )),
       DataCell(Text(clients[index].reference)),
       DataCell(Text(clients[index].compteur?.number ?? "")),
       DataCell(Text(clients[index].rang.toString())),
