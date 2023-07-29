@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:bluetouch/auth/config/state.dart';
 import 'package:bluetouch/auth/presentation/views/login_page.dart';
-import 'package:bluetouch/client/presentation/views/client_list_page.dart';
 import 'package:bluetouch/core/presentation/views/dropdown_saep.dart';
 import 'package:bluetouch/drawer.dart';
 import 'package:bluetouch/firebase_options.dart';
+import 'package:bluetouch/navigation/config/state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +73,7 @@ class MyApp extends HookConsumerWidget {
           drawer: const AppDrawer(),
           body: Container(
             padding: const EdgeInsets.all(16.0),
-            child: const ClientListPage(),
+            child: ref.watch(navigationStateProvider)?.currentPage,
           ),
         );
       }),
